@@ -1,7 +1,8 @@
 defmodule AbhiBlogWeb.Router do
   use AbhiBlogWeb, :router
-  use Beacon.LiveAdmin.Router # <- add this line
-
+  use Beacon.Router
+  # <- add this line
+  use Beacon.LiveAdmin.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -10,24 +11,36 @@ defmodule AbhiBlogWeb.Router do
     plug :put_root_layout, html: {AbhiBlogWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug Beacon.LiveAdmin.Plug # <- add this line
+    # <- add this line
+    plug Beacon.LiveAdmin.Plug
   end
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
+  # add the following scope before any beacon_site
+  # scope "/admin" do
+  #   pipe_through :browser
+  #   beacon_live_admin "/"
+  # end
 
-# add the following scope before any beacon_site
-scope "/admin" do
-  pipe_through :browser
-  beacon_live_admin "/"
-end
+  #   scope "/", AbhiBlogWeb do
+  #     pipe_through :browser
 
-  scope "/", AbhiBlogWeb do
+  #     # get "/", PageController, :home
+  #     beacon_site "/", site: :dev
+  #   end
+
+  scope "/admin" do
     pipe_through :browser
+    beacon_live_admin "/"
+  end
 
-    get "/", PageController, :home
+  scope "/" do
+    pipe_through :browser
+    beacon_site "/", site: :dev
+    beacon_site "/", site: :my_site
   end
 
   # Other scopes may use custom stacks.

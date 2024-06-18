@@ -8,7 +8,7 @@
 import Config
 
 config :abhi_blog,
-  ecto_repos: [AbhiBlog.Repo],
+  ecto_repos: [AbhiBlog.Repo, BeaconCMS.Repo],
   generators: [timestamp_type: :utc_datetime]
 
 # Configures the endpoint
