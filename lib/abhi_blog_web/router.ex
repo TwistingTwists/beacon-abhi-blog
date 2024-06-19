@@ -40,7 +40,8 @@ defmodule AbhiBlogWeb.Router do
   scope "/" do
     pipe_through :browser
     beacon_site "/", site: :dev
-    beacon_site "/", site: :my_site
+    beacon_site "/site", site: :my_site
+    beacon_site "/my_test_website", site: :my_test_website
   end
 
   # Other scopes may use custom stacks.

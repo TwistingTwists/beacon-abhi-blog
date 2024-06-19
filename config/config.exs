@@ -8,7 +8,7 @@
 import Config
 
 config :abhi_blog,
-  ecto_repos: [AbhiBlog.Repo, BeaconCMS.Repo],
+  ecto_repos: [AbhiBlog.Repo, Beacon.Repo],
   generators: [timestamp_type: :utc_datetime]
 
 # Configures the endpoint
@@ -16,7 +16,7 @@ config :abhi_blog, AbhiBlogWeb.Endpoint,
   url: [host: "localhost"],
   adapter: Bandit.PhoenixAdapter,
   render_errors: [
-    formats: [html: AbhiBlogWeb.ErrorHTML, json: AbhiBlogWeb.ErrorJSON],
+    formats: [html: BeaconWeb.ErrorHTML, json: AbhiBlogWeb.ErrorJSON],
     layout: false
   ],
   pubsub_server: AbhiBlog.PubSub,

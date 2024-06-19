@@ -62,7 +62,6 @@ defmodule AbhiBlog.MixProject do
       # beacon
       {:beacon, github: "BeaconCMS/beacon", override: true},
       {:beacon_live_admin, github: "BeaconCMS/beacon_live_admin"}
-
     ]
   end
 

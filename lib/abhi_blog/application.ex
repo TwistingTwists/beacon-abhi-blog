@@ -19,8 +19,10 @@ defmodule AbhiBlog.Application do
       # Start to serve requests, typically the last entry
       {Beacon,
        sites: [
-          dev_site(),
-        #  [site: :dev, endpoint: AbhiBlog.Endpoint, skip_boot?: true]
+         dev_site(),
+         #  [site: :dev, endpoint: AbhiBlog.Endpoint, skip_boot?: true]
+         [site: :my_site, endpoint: AbhiBlog.Endpoint, skip_boot?: true],
+         [site: :my_test_website, endpoint: AbhiBlog.Endpoint, skip_boot?: true]
        ]},
       AbhiBlogWeb.Endpoint
     ]
@@ -31,19 +33,23 @@ defmodule AbhiBlog.Application do
     Supervisor.start_link(children, opts)
   end
 
-    defp dev_site() do
-
-   [
-    site: :dev,
-    endpoint: AbhiBlog.Endpoint,
-    skip_boot?: true,
-    extra_page_fields: [BeaconTagsField],
-    lifecycle: [upload_asset: [thumbnail: &Beacon.Lifecycle.Asset.thumbnail/2, _480w: &Beacon.Lifecycle.Asset.variant_480w/2]],
-    default_meta_tags: [
-      %{"name" => "default", "content" => "dev"}
+  defp dev_site() do
+    [
+      site: :dev,
+      endpoint: AbhiBlog.Endpoint,
+      skip_boot?: true,
+      extra_page_fields: [BeaconTagsField],
+      lifecycle: [
+        upload_asset: [
+          thumbnail: &Beacon.Lifecycle.Asset.thumbnail/2,
+          _480w: &Beacon.Lifecycle.Asset.variant_480w/2
+        ]
+      ],
+      default_meta_tags: [
+        %{"name" => "default", "content" => "dev"}
+      ]
     ]
-  ]
-    end
+  end
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
